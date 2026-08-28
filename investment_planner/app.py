@@ -17,13 +17,19 @@ from pydantic import BaseModel
 
 app = FastAPI(title="WealthPlanner - Financial Advisory Workspace")
 
-if "ADANOS_API_KEY" not in os.environ:
-    _env_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
-    if os.path.exists(_env_file):
+_env_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+if os.path.exists(_env_file):
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(_env_file)
+    except ImportError:
         with open(_env_file) as _f:
             for _line in _f:
-                if _line.startswith("ADANOS_API_KEY="):
-                    os.environ["ADANOS_API_KEY"] = _line.strip().split("=", 1)[1].strip('"\'')
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _v = _line.split("=", 1)
+                    if _k.strip() not in os.environ:
+                        os.environ[_k.strip()] = _v.strip().strip('"\'')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
