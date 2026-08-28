@@ -1,0 +1,650 @@
+/* ==========================================================================
+   WealthPlanner - Official aiKart Theme & Design System (aikart.co Specifications)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Red+Hat+Display:wght@500;600;700;800;900&family=Outfit:wght@500;600;700;800&family=Sansita+One&display=swap');
+
+:root {
+  /* aiKart Base Tokens */
+  --bg-app: #f4f4f4;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f8fafc;
+  --border-light: rgba(226, 232, 240, 0.8);
+  --border-hover: #cbd5e1;
+
+  /* aiKart Electric Blue & Accent Palette */
+  --color-primary: #0050ff;
+  --color-primary-hover: #0040d0;
+  --color-primary-light: #eff6ff;
+  --color-primary-border: rgba(0, 80, 255, 0.2);
+
+  --color-emerald: #059669;
+  --color-emerald-light: #ecfdf5;
+
+  --color-amber: #d97706;
+  --color-amber-light: #fffbeb;
+
+  --color-rose: #e11d48;
+  --color-rose-light: #fff1f2;
+
+  --text-dark: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --radius-pill: 50px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 30px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 18px 50px rgba(6, 15, 40, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Red Hat Display', 'Outfit', sans-serif;
+  color: var(--text-dark);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Animated Text Gradient from aiKart.co */
+@keyframes hm-gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.hm-grad, .animated-gradient {
+  display: inline-block;
+  font-weight: inherit;
+  font-family: inherit;
+  background: linear-gradient(90deg, #0050FF 0%, #7F7595 25%, #FFAE00 50%, #7F7595 75%, #0050FF 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: hm-gradientShift 6s linear infinite;
+}
+
+/* aiKart Glassmorphism Utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(226, 232, 240, 0.9);
+  border-radius: 9999px;
+}
+
+/* Header Navbar - Exact aiKart Glass Capsule (.gnav-in) */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 20px auto 0 auto;
+  padding: 0 32px;
+  height: 74px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50px;
+  position: sticky;
+  top: 16px;
+  z-index: 1000;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brand-logo-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-ai {
+  color: var(--color-primary);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+}
+
+.logo-kart {
+  color: var(--text-dark);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+}
+
+.brand-name-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-subname {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-amber);
+  background: var(--color-amber-light);
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(217, 119, 6, 0.2);
+  margin-left: 0.35rem;
+}
+
+/* Navigation Tabs - Aikart Pill Style */
+.nav-tabs {
+  display: flex;
+  gap: 0.35rem;
+  background: transparent;
+  padding: 0;
+}
+
+.nav-tab-btn {
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  color: var(--text-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-tab-btn:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.nav-tab-btn.active {
+  background: var(--bg-surface);
+  color: var(--color-primary);
+  border-color: var(--color-primary-border);
+  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.12);
+}
+
+/* Header Right Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.btn-header-pill {
+  padding: 0.55rem 1.15rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 82, 255, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.btn-header-pill:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 5px 14px rgba(0, 82, 255, 0.35);
+}
+
+.avatar-circle {
+  width: 34px;
+  height: 34px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.icon-btn-pill {
+  width: 34px;
+  height: 34px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary-border);
+  cursor: pointer;
+}
+
+/* Currency Controls */
+.currency-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.currency-select-box {
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.82rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.currency-select-box:focus {
+  border-color: var(--color-primary);
+  background: #ffffff;
+}
+
+/* Main Layout Grid & Container (aiKart Specs) */
+.workspace-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 3.5rem 40px;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.75rem;
+}
+
+@media (max-width: 1024px) {
+  .workspace-container {
+    padding: 0 20px 2.5rem 20px;
+  }
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Crisp Glass Cards (.hm-card style from aiKart) */
+.card-panel {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  padding: 1.75rem 1.8rem;
+  margin-bottom: 1.75rem;
+  transition: box-shadow 0.25s ease;
+}
+
+.card-panel:hover {
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.08);
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card-title {
+  font-family: 'Red Hat Display', 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-dark);
+}
+
+/* Form Controls */
+.form-section-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-group {
+  margin-bottom: 0.9rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 80, 255, 0.12);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.78rem 1.4rem;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 4px 16px rgba(0, 80, 255, 0.28);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: 0 6px 20px rgba(0, 80, 255, 0.38);
+  transform: translateY(-1px);
+}
+
+/* Metric Cards (.hm-mkt-card elevation style) */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.95rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 1280px) {
+  .metrics-row {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.metric-card {
+  padding: 1.25rem 1.1rem;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card.primary { border-top: 3.5px solid var(--color-primary); }
+.metric-card.emerald { border-top: 3.5px solid var(--color-emerald); }
+.metric-card.amber { border-top: 3.5px solid var(--color-amber); }
+.metric-card.rose { border-top: 3.5px solid var(--color-rose); }
+
+.metric-lbl {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.metric-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Red Hat Display', 'Outfit', sans-serif;
+  color: var(--text-dark);
+}
+
+.metric-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.health-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.badge-excellent { background: var(--color-emerald-light); color: var(--color-emerald); }
+.badge-good { background: #e0f2fe; color: #0284c7; }
+.badge-warning { background: var(--color-amber-light); color: var(--color-amber); }
+
+/* Comparison Table */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin-top: 0.75rem;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.comparison-table th {
+  padding: 0.85rem;
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.comparison-table td {
+  padding: 0.95rem 0.85rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+}
+
+.comparison-table tr:hover {
+  background: var(--bg-app);
+}
+
+.risk-tag {
+  padding: 0.2rem 0.55rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.risk-low { background: var(--color-emerald-light); color: var(--color-emerald); }
+.risk-moderate { background: var(--color-amber-light); color: var(--color-amber); }
+.risk-high { background: var(--color-rose-light); color: var(--color-rose); }
+
+/* Roadmap Timeline */
+.roadmap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.roadmap-item {
+  padding: 1.1rem;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+}
+
+.roadmap-phase {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.roadmap-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.3rem;
+}
+
+.roadmap-desc {
+  font-size: 0.88rem;
+  color: var(--text-body);
+}
+
+/* Chat Assistant Container */
+.chat-workspace {
+  display: flex;
+  flex-direction: column;
+  height: 520px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-bubble {
+  max-width: 82%;
+  padding: 0.9rem 1.15rem;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.chat-bubble-user {
+  align-self: flex-end;
+  background: var(--color-primary);
+  color: #ffffff;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-bubble-advisor {
+  align-self: flex-start;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  color: var(--text-dark);
+  border-bottom-left-radius: 2px;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-surface);
+}
+
+.chat-text-input {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  background: var(--bg-app);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+}
+
+.chat-text-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #fff;
+}
+
+.chart-container-box {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}

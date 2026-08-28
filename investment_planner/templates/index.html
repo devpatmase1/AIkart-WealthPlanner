@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="aiKart WealthPlanner - AI-Powered Personal Financial Advisory & Wealth Building Platform">
+  <title>aiKart WealthPlanner - Personal Financial Advisory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Red+Hat+Display:wght@500;600;700;800;900&family=Outfit:wght@500;600;700;800&family=Sansita+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/chart_engine.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Header (.gnav / .gnav-in from aiKart.co) -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <img src="/static/images/logo-full.png" alt="aiKart" height="28" style="object-fit: contain;">
+      <span class="brand-subname">WealthPlanner</span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" onclick="switchTab('pane-diagnosis', this)">
+        Financial Profile
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('pane-matrix', this)">
+        Comparison & Risk
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('pane-simulator', this)">
+        SIP Calculator
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('pane-chat', this)">
+        AI Advisor Chat
+      </button>
+    </div>
+
+    <!-- Header Actions & Currency Controls -->
+    <div class="header-actions">
+      <button class="btn-header-pill" onclick="switchTab('pane-simulator', document.querySelectorAll('.nav-tab-btn')[2])">
+        Calculate Plan
+      </button>
+      
+      <div class="currency-controls">
+        <select id="currency-selector" class="currency-select-box" onchange="onCurrencyChange()">
+          <option value="INR" selected>INR (₹)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="AED">AED (AED)</option>
+          <option value="CAD">CAD ($)</option>
+          <option value="AUD">AUD ($)</option>
+          <option value="SGD">SGD ($)</option>
+        </select>
+      </div>
+
+      <div class="avatar-circle">DP</div>
+    </div>
+  </header>
+
+  <!-- aiKart Hero Banner (.hm-hero / .hm-container) -->
+  <div style="max-width: 1400px; margin: 2rem auto 1.5rem auto; padding: 0 40px;">
+    <div class="hm-eyebrow" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase; color: #d97706; margin-bottom: 0.5rem;">
+      THE FINANCIAL WORKSPACE
+    </div>
+    
+    <h1 style="font-family: 'Red Hat Display', sans-serif; font-size: clamp(32px, 3.8vw, 52px); font-weight: 800; line-height: 1.15; color: #0f172a; margin-bottom: 1rem; letter-spacing: -0.03em;">
+      Everything you need to <span class="hm-grad">plan wealth with confidence</span>
+    </h1>
+
+    <div class="hm-pills" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.25rem;">
+      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1.5px solid rgba(226, 232, 240, 0.9); border-radius: 50px; color: #0f172a; font-size: 13px; font-weight: 500;">
+        ⚡ Inflation-Adjusted Compound Math
+      </span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1.5px solid rgba(226, 232, 240, 0.9); border-radius: 50px; color: #0f172a; font-size: 13px; font-weight: 500;">
+        🛡️ Emergency Reserve & Debt Prepayment Optimization
+      </span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1.5px solid rgba(226, 232, 240, 0.9); border-radius: 50px; color: #0f172a; font-size: 13px; font-weight: 500;">
+        🤖 Powered by Google Gemini & Autonomous Agents
+      </span>
+    </div>
+  </div>
+
+  <!-- Workspace Container -->
+  <main class="workspace-container">
+    <div class="workspace-grid">
+      
+      <!-- LEFT SIDEBAR: USER FINANCIAL INPUTS (Default 0 Slate) -->
+      <aside class="card-panel">
+        <div class="card-title-row">
+          <h3 class="card-title">📥 Financial Profile</h3>
+          <span style="font-size: 0.78rem; color: var(--color-primary); font-weight: 600;">Live Calculator</span>
+        </div>
+
+        <form id="profile-form" onsubmit="event.preventDefault(); agentDiagnose();">
+          
+          <div class="form-section-title">1. Monthly Income</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="primary_income">Primary Salary (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="primary_income" class="form-input" value="0" min="0" step="1000" oninput="agentDiagnose()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="secondary_income">Spouse/Extra (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="secondary_income" class="form-input" value="0" min="0" step="1000" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <div class="form-section-title">2. Outflows & Liabilities</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="fixed_expenses">Fixed Expenses (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="fixed_expenses" class="form-input" value="0" min="0" step="1000" oninput="agentDiagnose()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="discretionary_expenses">Lifestyle (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="discretionary_expenses" class="form-input" value="0" min="0" step="500" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="debt_emi">Monthly EMI (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="debt_emi" class="form-input" value="0" min="0" step="500" oninput="agentDiagnose()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="high_interest_debt">High-Int Debt (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="high_interest_debt" class="form-input" value="0" min="0" step="1000" placeholder="Credit Card" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <div class="form-section-title">3. Assets & Reserves</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="emergency_cash">Emergency Cash (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="emergency_cash" class="form-input" value="0" min="0" step="5000" oninput="agentDiagnose()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="existing_investments">Existing Funds (<span class="curr-sym">₹</span>)</label>
+              <input type="number" id="existing_investments" class="form-input" value="0" min="0" step="10000" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="provident_fund">Provident Fund / Pension (<span class="curr-sym">₹</span>)</label>
+            <input type="number" id="provident_fund" class="form-input" value="0" min="0" step="10000" oninput="agentDiagnose()">
+          </div>
+
+          <div class="form-section-title">4. Preferences & Risk</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="current_age">Current Age</label>
+              <input type="number" id="current_age" class="form-input" value="30" min="18" max="70" oninput="agentDiagnose()">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="retirement_age">Retire Age</label>
+              <input type="number" id="retirement_age" class="form-input" value="60" min="40" max="75" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="risk_profile">Risk Profile</label>
+              <select id="risk_profile" class="form-input" onchange="agentDiagnose()">
+                <option value="conservative">Conservative</option>
+                <option value="moderate" selected>Balanced Growth</option>
+                <option value="growth">Growth</option>
+                <option value="aggressive">Aggressive</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="tax_bracket_pct">Tax Bracket (%)</label>
+              <input type="number" id="tax_bracket_pct" class="form-input" value="20" min="0" max="40" oninput="agentDiagnose()">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="margin-top: 0.5rem;">
+            Calculate Strategy
+          </button>
+        </form>
+      </aside>
+
+      <!-- RIGHT SIDE: WORKSPACE PANES -->
+      <div>
+        
+        <!-- SUMMARY METRICS -->
+        <div class="metrics-row">
+          <div class="metric-card primary">
+            <div class="metric-lbl">Financial Health Score</div>
+            <div class="metric-num" id="widget-health-score" style="color: var(--color-primary);">0 / 100</div>
+            <div style="margin-top: 0.25rem;">
+              <span id="health-badge" class="health-badge badge-warning">Enter Values</span>
+            </div>
+          </div>
+
+          <div class="metric-card emerald">
+            <div class="metric-lbl">Monthly Surplus</div>
+            <div class="metric-num" id="widget-surplus" style="color: var(--color-emerald);">₹0</div>
+            <div class="metric-desc" id="widget-savings-rate">0% Savings Rate</div>
+          </div>
+
+          <div class="metric-card amber">
+            <div class="metric-lbl">Emergency Reserves</div>
+            <div class="metric-num" id="widget-emergency" style="color: var(--color-amber);">0 Months</div>
+            <div class="metric-desc" id="widget-emergency-target">Target: 6 Months (₹0)</div>
+          </div>
+
+          <div class="metric-card primary">
+            <div class="metric-lbl">Net Worth</div>
+            <div class="metric-num" id="widget-net-worth">₹0</div>
+            <div class="metric-desc">Assets minus Liabilities</div>
+          </div>
+
+          <div class="metric-card emerald">
+            <div class="metric-lbl">Real Retirement Power</div>
+            <div class="metric-num" id="widget-corpus">₹0</div>
+            <div class="metric-desc" id="widget-purchasing-power">Real Power (Today's Money)</div>
+          </div>
+        </div>
+
+        <!-- PANE 1: DIAGNOSIS & ALLOCATION -->
+        <div id="pane-diagnosis" class="tab-pane active">
+          <div class="card-panel">
+            <div class="card-title-row">
+              <h3 class="card-title">📊 Asset Allocation & Financial Roadmap</h3>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
+              <div style="height: 220px; position: relative;">
+                <canvas id="allocationChart" style="width:100%; height:100%;"></canvas>
+              </div>
+              <div>
+                <h4 style="margin-bottom: 0.75rem;">Recommended Asset Mix</h4>
+                <div id="allocation-breakdown" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <!-- Dynamic Progress Bars -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Monthly Income Flow Bar Chart -->
+            <div style="margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--text-dark);">Income Flow & Surplus Breakdown</h4>
+              <div style="height: 80px; position: relative;">
+                <canvas id="incomeBreakdownChart" style="width:100%; height:100%;"></canvas>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="card-title" style="margin-bottom: 0.75rem;">🗺️ Actionable Financial Roadmap</h3>
+              <div class="roadmap-list" id="roadmap-container">
+                <!-- Dynamic Roadmap -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 2: ASSET COMPARISON MATRIX & RISK-RETURN CHART -->
+        <div id="pane-matrix" class="tab-pane">
+          <div class="card-panel">
+            <div class="card-title-row">
+              <h3 class="card-title">⚖️ Side-by-Side Investment Comparison & Risk Analysis</h3>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Visual Risk vs Return scatter plot comparing 7 major asset classes for middle-class investors.
+            </p>
+
+            <!-- Scatter Chart -->
+            <div style="height: 260px; position: relative; margin-bottom: 1.5rem;">
+              <canvas id="riskReturnChart" style="width:100%; height:100%;"></canvas>
+            </div>
+
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Asset Class</th>
+                    <th>Expected Return</th>
+                    <th>Risk Level</th>
+                    <th>Liquidity</th>
+                    <th>Tax Efficiency</th>
+                    <th>Min Entry</th>
+                    <th>Middle-Class Verdict</th>
+                  </tr>
+                </thead>
+                <tbody id="matrix-tbody">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 3: SIP SIMULATOR -->
+        <div id="pane-simulator" class="tab-pane">
+          <div class="card-panel">
+            <div class="card-title-row">
+              <h3 class="card-title">📈 SIP Growth & Inflation Calculator</h3>
+            </div>
+
+            <div class="form-grid-2" style="margin-bottom: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="sim-sip-amount">Monthly Investment SIP (<span class="curr-sym">₹</span>)</label>
+                <input type="number" id="sim-sip-amount" class="form-input" value="0" oninput="updateGrowthSimulator()">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-inflation-rate">Expected Inflation Rate (%)</label>
+                <input type="number" id="sim-inflation-rate" class="form-input" value="5.5" step="0.1" oninput="updateGrowthSimulator()">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="sim-years">Horizon (Years)</label>
+                <input type="number" id="sim-years" class="form-input" value="20" min="5" max="40" oninput="updateGrowthSimulator()">
+              </div>
+            </div>
+
+            <div style="height: 280px; position: relative;">
+              <canvas id="growthChart" style="width:100%; height:100%;"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 4: FINANCIAL ADVISOR CHAT -->
+        <div id="pane-chat" class="tab-pane">
+          <div class="chat-workspace">
+            <div class="card-title-row" style="margin: 0; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--border-light);">
+              <h3 class="card-title">💬 Personal Financial Advisor</h3>
+            </div>
+
+            <div class="chat-log" id="chat-log">
+              <div class="chat-bubble chat-bubble-advisor">
+                👋 Hello! I am your personal financial advisor powered by Google Gemini. Ask me anything about loan prepayment vs. investing, emergency funds, mutual funds, or SIP vs stock trading.
+              </div>
+            </div>
+
+            <div class="chat-input-row">
+              <input type="text" id="chat-text-input" class="chat-text-input" placeholder="Type your financial question (e.g., SIP vs Stock Trading)..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+              <button class="btn-primary" style="width: auto; padding: 0.65rem 1.25rem;" onclick="sendChatMessage()">Ask Advisor</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
